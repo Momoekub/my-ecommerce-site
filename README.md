@@ -1,8 +1,8 @@
 # my-ecommerce-site
 web-technology
 
-#Workout Template
-#Description
+# Workout Template
+# Description
 - One page layout
 - Responsive Web Design
 - HTML5
