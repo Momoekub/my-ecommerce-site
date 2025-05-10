@@ -1,5 +1,0 @@
-First Name: asdasd
-Last Name: sdasdas
-Email: asdsadas
-Occupation: Computer
----
