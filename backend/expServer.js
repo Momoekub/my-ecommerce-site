@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 
 app.use('/data', express.static(path.join(__dirname, 'data')));
 
-
 app.use('/api/subject', require('./routes/subject'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/subscribe', require('./routes/subscribe'));
@@ -54,7 +53,7 @@ app.post('/api/register', (req, res) => {
       email,
       password,
       occupation,
-       registeredAt: new Date().toISOString(),
+      registeredAt: new Date().toISOString(),
     });
 
     fs.writeFile(filePath, JSON.stringify(users, null, 2), (err) => {

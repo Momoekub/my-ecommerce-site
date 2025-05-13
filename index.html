@@ -1533,8 +1533,8 @@
     <div class="form-group row">
   <div class="col-md-12">
     <select id="occupation-category" class="form-control" onchange="loadProfessions()">
-  <option value="" disabled selected>Select Occupation Category</option>
-</select>
+      <option value="" disabled selected>Select Occupation Category</option>
+    </select>
   </div>
 </div>
 
@@ -1544,25 +1544,25 @@
       <option value="" disabled selected>Select a profession</option>
     </select>
   </div>
-  
 </div>
 
-    <div class="form-group row">
-      <div class="col-md-12">
-        <input id="register-email" type="email" class="form-control" placeholder="Email">
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-md-12">
-        <input id="register-password" type="password" class="form-control" placeholder="Password">
-      </div>
-    </div>
+<div class="form-group row">
+  <div class="col-md-12">
+    <input id="register-email" type="email" class="form-control" placeholder="Email">
+  </div>
+</div>
 
-    <div class="form-group row">
-      <div class="col-md-6">
-        <input type="button" onclick="submitRegister()" class="btn btn-primary py-3 px-5 btn-block" value="Register">
-      </div>
-    </div>
+<div class="form-group row">
+  <div class="col-md-12">
+    <input id="register-password" type="password" class="form-control" placeholder="Password">
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-md-6">
+    <input type="button" onclick="submitRegister()" class="btn btn-primary py-3 px-5 btn-block" value="Register">
+  </div>
+</div>
   </form>
 </div>
                 <div role="tabpanel" class="tab-pane" id="sign-in"><form method="post" data-aos="fade"> Sign-in
@@ -1570,13 +1570,13 @@
         
                   <div class="form-group row">
                     <div class="col-md-12">
-                      <input type="text" class="form-control" placeholder="Name">
+                      <input id="login-email"  type="text" class="form-control" placeholder="Email">
                     </div>
                   </div>
         
                   <div class="form-group row">
                     <div class="col-md-12">
-                      <input type="password" class="form-control" placeholder="Password">
+                      <input id="login-password" type="password" class="form-control" placeholder="Password">
                     </div>
                   </div>
                   
@@ -1584,7 +1584,7 @@
                   <div class="form-group row">
                     <div class="col-md-6">
         
-                      <input type="submit" class="btn btn-primary py-3 px-5 btn-block" value="Sign in">
+                      <input type="button" class="btn btn-primary py-3 px-5 btn-block" value="Sign in " onclick="submitLogin()">
                     </div>
                   </div>
         
@@ -1710,10 +1710,19 @@ async function submitContact() {
 } 
 
 //------------------------------------------------------------------------------------------------------------------------
-    async function loadProfessions() {
+    let isLoading = false;
+async function loadProfessions() {
   console.log("loadProfessions function called");
   const occupationDropdown = document.getElementById('occupation-category');
-  
+  const selectedCategory = occupationDropdown.value;
+  if (selectedCategory) {
+    console.log(`Selected Occupation Category: ${selectedCategory}`);
+    return;  // หากเลือก category เดิม ไม่ต้องโหลดใหม่
+  }
+
+  // Lock the dropdown immediately
+  occupationDropdown.disabled = true;
+  occupationDropdown.style.cursor = 'wait';
   // Lock the dropdown immediately
   occupationDropdown.disabled = true;
   occupationDropdown.style.cursor = 'wait';
@@ -1772,45 +1781,44 @@ async function submitContact() {
     occupationDropdown.style.cursor = 'not-allowed';
   }
 }
-
 async function loadProfessionDropdown(category) {
-  console.log(`Loading professions for category: ${category}`);
+  console.log(`Loading professions for: ${category}`);
+  const professionDropdown = document.getElementById('professions-dropdown');
+  professionDropdown.disabled = true;
+  professionDropdown.style.cursor = 'wait';
+
   try {
     const response = await fetch(`http://localhost:4000/data/${category.toLowerCase()}.json`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
+    if (!response.ok) throw new Error('Failed to fetch professions.');
+
     const data = await response.json();
-
     const professions = data.professions;
-    if (!Array.isArray(professions)) {
-      throw new Error(`Invalid data format: professions is not an array`);
-    }
 
-    const professionDropdown = document.getElementById('professions-dropdown');
+    if (!Array.isArray(professions)) throw new Error('Invalid data format: professions is not an array.');
+
+    // Populate professions dropdown
     professionDropdown.innerHTML = '<option value="" disabled selected>Select a profession</option>';
-
-    professions.forEach((profession) => {
+    professions.forEach(profession => {
       const option = document.createElement('option');
       option.value = profession;
       option.textContent = profession;
       professionDropdown.appendChild(option);
     });
 
-    // Show professions dropdown
+    // Show professions section
     document.getElementById('professions-container').style.display = 'block';
+    professionDropdown.disabled = false;
+    professionDropdown.style.cursor = 'pointer';
+
   } catch (error) {
-    console.error(`Error loading professions for ${category}:`, error);
-    const professionDropdown = document.getElementById('professions-dropdown');
+    console.error(error.message);
     professionDropdown.innerHTML = '<option value="" disabled selected>Error loading professions</option>';
     professionDropdown.style.cursor = 'not-allowed';
   }
 }
 
-window.onload = function () {
-  loadProfessions();
-};
-
+// Call on page load
+window.addEventListener('DOMContentLoaded', loadProfessions);
 
   function loadDoc(url, cFunction) {
     const xhttp = new XMLHttpRequest();
@@ -1893,14 +1901,19 @@ window.onload = function () {
   }
 
   window.onload = function() {
+    document.getElementById('subscribe-form').addEventListener('submit', e => {
+        e.preventDefault();  // ⭐ ป้องกัน reload ที่ผิดปกติ
+        subscribeSummit(e);
+    });
+
     const contact = document.getElementById("contact-head");
     contact.innerHTML = "WoooooooooW";
+    
     loadDoc("./xml/class_sunday.xml", classXML);
     loadDoc("./json/class_sunday.json", classJSON);
     loadSubject('http://localhost:4000/api/subject');
-    loadProfessions()
-    document.getElementById('subscribe-form').addEventListener('submit', e => subscribeSummit(e))
-  };
+    loadProfessions();
+};
 
 
   const ajax = async (config) => {
@@ -1974,6 +1987,38 @@ async function subscribeSummit(e){
   console.log(response)
 }
 
+
+
+
+async function submitLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value.trim();
+
+  if (!email || !password) {
+    alert("Please fill in both email and password.");
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:4000/api/login', {
+      method: 'POST', // ต้องใช้ POST
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: email, password: password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(data.message); // Login successfully
+    } else {
+      alert(data.message); // Incorrect email or password
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
+    alert('An error occurred during login.');
+  }
+}
+  
 </script>
 
 </body>

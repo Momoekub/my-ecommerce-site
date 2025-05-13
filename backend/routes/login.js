@@ -1,38 +1,37 @@
 const express = require('express');
 const fs = require('fs');
-const path = require('path');
 const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.status(405).json({ message: 'Please use POST method for login.' });
+});
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username and password are required' });
-  }
-
-  const filePath = path.join(__dirname, '../data/user.json');
-
-  fs.readFile(filePath, 'utf8', (err, data) => {
+  // โหลดข้อมูลจากไฟล์ user.json
+  fs.readFile('data/user.json', 'utf8', (err, data) => {
     if (err) {
-      console.error('Error reading user data:', err);
-      return res.status(500).json({ message: 'Internal Server Error' });
+      console.error('Error reading user.json:', err);
+      return res.status(500).json({ message: 'Internal server error' });
     }
 
-    const users = JSON.parse(data);
-
-    // Find user by username (email)
-    const user = users.find((u) => u.email === username);
-    if (!user) {
-      return res.status(400).json({ message: 'Incorrect Username' });
+    let users;
+    try {
+      users = JSON.parse(data);
+    } catch (error) {
+      console.error('Error parsing user.json:', error);
+      return res.status(500).json({ message: 'Internal server error' });
     }
 
-    // Check if password matches
-    if (user.password !== password) {
-      return res.status(400).json({ message: 'Incorrect Password' });
-    }
+    // ค้นหาผู้ใช้ที่มี email และ password ตรงกัน
+    const user = users.find(user => user.email === username && user.password === password);
 
-    // Successful login
-    res.json({ message: 'Login successfully.' });
+    if (user) {
+      return res.json({ message: 'Login successfully.' });
+    } else {
+      return res.status(400).json({ message: 'Incorrect email or password' });
+    }
   });
 });
 
