@@ -1476,79 +1476,95 @@
               <!-- Tab panes -->
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="contact-us">
-                  
-                  <form  data-aos="fade"> Contact us
-                  <div class="form-group row">
-                    <div class="col-md-6 mb-3 mb-lg-0">
-                      <input id="fname" name="fname" type="text" class="form-control" placeholder="First name">
-                    </div>
-                    <div class="col-md-6">
-                      <input id="lname" name="lname" type="text" class="form-control" placeholder="Last name">
-                    </div>
-                  </div>
-        
-                  <div class="form-group row">
-                    <div class="col-md-12">
-                      <input id="email" name="email" type="email" class="form-control" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-md-12">
-                     <!--- <input type="text" class="form-control" placeholder="Subject">--->
-                      <select id="subject-select" name="subjectSelect" class="form-control" onchange="show()">
-                        <option value="" >Subject</option>
-                        </select>
-                    </div>
-                  </div>
-        
-                  
-                  <div class="form-group row">
-                    <div class="col-md-12">
-                      <textarea id="message" name="message" class="form-control" id="" cols="30" rows="10"
-                        placeholder="Write your message here."></textarea>
-                    </div>
-                  </div>
-        
-                  <div class="form-group row">
-                    <div class="col-md-6">
-        
-                      <input type="button" onclick="submitContact()" class="btn btn-primary py-3 px-5 btn-block" value="Send Message">
-                    </div>
-                  </div>
-        
-                </form>
+                  Contact us
+                  <form data-aos="fade">
+  <div class="form-group row">
+    <div class="col-md-6 mb-3 mb-lg-0">
+      <input id="fname" name="fname" type="text" class="form-control" placeholder="First name">
+    </div>
+    <div class="col-md-6">
+      <input id="lname" name="lname" type="text" class="form-control" placeholder="Last name">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-12">
+      <input id="email" name="email" type="email" class="form-control" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-12">
+      <select id="subject-select" name="subjectSelect" class="form-control" onchange="show()">
+        <option value="">Subject</option>
+        <!-- สามารถเพิ่มตัวเลือกของ subject ได้ที่นี่ -->
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-12">
+      <textarea id="message" name="message" class="form-control" id="" cols="30" rows="10" placeholder="Write your message here."></textarea>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-6">
+      <!-- ปุ่ม Send Message -->
+      <input type="button" onclick="submitContact()" class="btn btn-primary py-3 px-5 btn-block" value="Send Message">
+    </div>
+  </div>
+</form>
               </div>
-                <div role="tabpanel" class="tab-pane" id="register"><form method="post" data-aos="fade"> Register
-                  <div class="form-group row">
-                    <div class="col-md-6 mb-3 mb-lg-0">
-                      <input type="text" class="form-control" placeholder="First name">
-                    </div>
-                    <div class="col-md-6">
-                      <input type="text" class="form-control" placeholder="Last name">
-                    </div>
-                  </div>
-        
-                  <div class="form-group row">
-                    <div class="col-md-12">
-                      <input type="text" class="form-control" placeholder="Occupation">
-                    </div>
-                  </div>
-        
-                  <div class="form-group row">
-                    <div class="col-md-12">
-                      <input type="email" class="form-control" placeholder="Email">
-                    </div>
-                  </div>
-                  
-        
-                  <div class="form-group row">
-                    <div class="col-md-6">
-        
-                      <input type="submit" class="btn btn-primary py-3 px-5 btn-block" value="Register">
-                    </div>
-                  </div>
-        
-                </form></div>
+
+               <!-- เพิ่ม dropdown สำหรับ occupation categories ------------------------------------------------------------------------------>
+
+<div role="tabpanel" class="tab-pane" id="register">
+  <form method="post" data-aos="fade">
+    Register
+    <div class="form-group row">
+      <div class="col-md-6 mb-3 mb-lg-0">
+        <input id="register-fname" type="text" class="form-control" placeholder="First name">
+      </div>
+      <div class="col-md-6">
+        <input id="register-lname" type="text" class="form-control" placeholder="Last name">
+      </div>
+    </div>
+
+    <div class="form-group row">
+  <div class="col-md-12">
+    <select id="occupation-category" class="form-control" onchange="loadProfessions()">
+  <option value="" disabled selected>Select Occupation Category</option>
+</select>
+  </div>
+</div>
+
+<div class="form-group row" id="professions-container" style="display: none;">
+  <div class="col-md-12">
+    <select id="professions-dropdown" class="form-control">
+      <option value="" disabled selected>Select a profession</option>
+    </select>
+  </div>
+  
+</div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <input id="register-email" type="email" class="form-control" placeholder="Email">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-12">
+        <input id="register-password" type="password" class="form-control" placeholder="Password">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-6">
+        <input type="button" onclick="submitRegister()" class="btn btn-primary py-3 px-5 btn-block" value="Register">
+      </div>
+    </div>
+  </form>
+</div>
                 <div role="tabpanel" class="tab-pane" id="sign-in"><form method="post" data-aos="fade"> Sign-in
                 
         
@@ -1606,9 +1622,9 @@
             <h3 class="text-white">Subscribe</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, odio beatae accusantium.
             </p>
-            <form action="#">
+            <form id="subscribe-form">
               <div class="d-flex mb-5">
-                <input type="text" class="form-control rounded-0" placeholder="Email">
+                <input id="subscribe-email" type="email" class="form-control rounded-0" placeholder="Email">
                 <input type="submit" class="btn btn-primary rounded-0" value="Subscribe">
               </div>
             </form>
@@ -1656,157 +1672,309 @@
   <script src="js/jquery.mb.YTPlayer.min.js"></script>
 
 
-
-
   <script src="js/main.js"></script>
 
 
   
-  <script>
+ <script>
 
+async function submitContact() {
+  // ดึงข้อมูลจากฟอร์ม
+  const data = {
+    fname: document.getElementById('fname').value,
+    lname: document.getElementById('lname').value,
+    email: document.getElementById('email').value,
+    subject: document.getElementById('subject-select').value,
+    message: document.getElementById('message').value,
+  };
+
+  // แสดงข้อมูลในคอนโซล
+  console.log('Form data:', data);
+
+  // ส่งข้อมูลไปที่ server
+  try {
+    const response = await fetch('http://localhost:4000/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    // รับผลลัพธ์จาก server
+    const result = await response.json();
+    console.log('Response from server:', result);
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+  }
+} 
+
+//------------------------------------------------------------------------------------------------------------------------
+    async function loadProfessions() {
+  console.log("loadProfessions function called");
+  const occupationDropdown = document.getElementById('occupation-category');
   
+  // Lock the dropdown immediately
+  occupationDropdown.disabled = true;
+  occupationDropdown.style.cursor = 'wait';
+  
+  try {
+    const response = await fetch('http://localhost:4000/data/occupation-cat.json');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const professions = await response.json();
+    console.log('Professions loaded:', professions);
+
+    if (Array.isArray(professions.occupationCategories)) {
+      // Clear and populate dropdown
+      occupationDropdown.innerHTML = '<option value="" disabled selected>Select Occupation Category</option>';
+
+      professions.occupationCategories.forEach((occupation) => {
+        const option = document.createElement('option');
+        option.value = occupation;
+        option.textContent = occupation;
+        occupationDropdown.appendChild(option);
+      });
+
+      console.log("Occupation categories added:", professions.occupationCategories);
+
+      // Unlock the dropdown after loading
+      occupationDropdown.disabled = false;
+      occupationDropdown.style.cursor = 'pointer';
+
+      // Hide professions dropdown initially
+      document.getElementById('professions-container').style.display = 'none';
+
+      // Add event listener for category selection
+      occupationDropdown.addEventListener('change', async (event) => {
+        const selectedCategory = event.target.value;
+        if (selectedCategory) {
+          console.log(`Selected Occupation Category: ${selectedCategory}`);
+          // Lock the professions dropdown while loading
+          const professionsDropdown = document.getElementById('professions-dropdown');
+          professionsDropdown.disabled = true;
+          professionsDropdown.style.cursor = 'wait';
+          
+          await loadProfessionDropdown(selectedCategory);
+          
+          // Unlock after loading
+          professionsDropdown.disabled = false;
+          professionsDropdown.style.cursor = 'pointer';
+        }
+      });
+    } else {
+      throw new Error('Professions data is not an array');
+    }
+  } catch (error) {
+    console.error('Error loading professions:', error);
+    occupationDropdown.innerHTML = '<option value="" disabled selected>Error loading categories</option>';
+    occupationDropdown.style.cursor = 'not-allowed';
+  }
+}
+
+async function loadProfessionDropdown(category) {
+  console.log(`Loading professions for category: ${category}`);
+  try {
+    const response = await fetch(`http://localhost:4000/data/${category.toLowerCase()}.json`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+
+    const professions = data.professions;
+    if (!Array.isArray(professions)) {
+      throw new Error(`Invalid data format: professions is not an array`);
+    }
+
+    const professionDropdown = document.getElementById('professions-dropdown');
+    professionDropdown.innerHTML = '<option value="" disabled selected>Select a profession</option>';
+
+    professions.forEach((profession) => {
+      const option = document.createElement('option');
+      option.value = profession;
+      option.textContent = profession;
+      professionDropdown.appendChild(option);
+    });
+
+    // Show professions dropdown
+    document.getElementById('professions-container').style.display = 'block';
+  } catch (error) {
+    console.error(`Error loading professions for ${category}:`, error);
+    const professionDropdown = document.getElementById('professions-dropdown');
+    professionDropdown.innerHTML = '<option value="" disabled selected>Error loading professions</option>';
+    professionDropdown.style.cursor = 'not-allowed';
+  }
+}
+
+window.onload = function () {
+  loadProfessions();
+};
 
 
   function loadDoc(url, cFunction) {
     const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {cFunction(this);}
+    xhttp.onload = function() { cFunction(this); }
     xhttp.open("GET", url);
     xhttp.send();
   }
 
   function classXML(xmlDoc) {
-    // action goes here
     console.log("hi");
-   var xmlData=xmlDoc.responseXML;
-  var class_list= xmlData.getElementsByTagName("class");
-  console.log(class_list);
-  var html_text="";
-    for(var i=0;i<class_list.length;i++){
-  var single_page = class_list[i].getElementsByTagName("single-page")[0].childNodes[0].nodeValue;
-  var image = class_list[i].getElementsByTagName("image")[0].childNodes[0].nodeValue;
-  var time = class_list[i].getElementsByTagName("time")[0].childNodes[0].nodeValue;
-  var name = class_list[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
-  var instructor = class_list[i].getElementsByTagName("instructor")[0].childNodes[0].nodeValue;
-  var duration = class_list[i].getElementsByTagName("duration")[0].childNodes[0].nodeValue;
-  console.log(instructor);
-  html_text += '<div class="class-item d-flex align-items-center">'+
-                 ' <a href="'+single_page+'" class="class-item-thumbnail">'+
+    var xmlData = xmlDoc.responseXML;
+    var class_list = xmlData.getElementsByTagName("class");
+    console.log(class_list);
+    var html_text = "";
+    for (var i = 0; i < class_list.length; i++) {
+      var single_page = class_list[i].getElementsByTagName("single-page")[0].childNodes[0].nodeValue;
+      var image = class_list[i].getElementsByTagName("image")[0].childNodes[0].nodeValue;
+      var time = class_list[i].getElementsByTagName("time")[0].childNodes[0].nodeValue;
+      var name = class_list[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+      var instructor = class_list[i].getElementsByTagName("instructor")[0].childNodes[0].nodeValue;
+      var duration = class_list[i].getElementsByTagName("duration")[0].childNodes[0].nodeValue;
+      console.log(instructor);
+      html_text += '<div class="class-item d-flex align-items-center">'+
+                   ' <a href="'+single_page+'" class="class-item-thumbnail">'+
                    ' <img src="'+image+'" alt="Image">'+
-                 ' </a>'+
-                  '<div class="class-item-text">'+
-                    '<span>'+time+'</span>'+
-                   ' <h2><a href="'+single_page+'">'+name+'</a></h2>'+
-                    '<span>'+instructor+'</span>,'+
-                  '  <span>'+duration+'</span>'+
-                 ' </div>'+
-              '  </div>'
-}
-  console.log(html_text);
-  document.getElementById('nav-sunday').children[0].children[0].innerHTML=html_text;
-
+                   ' </a>'+
+                    '<div class="class-item-text">'+
+                      '<span>'+time+'</span>'+
+                     ' <h2><a href="'+single_page+'">'+name+'</a></h2>'+
+                      '<span>'+instructor+'</span>,'+
+                    '  <span>'+duration+'</span>'+
+                   ' </div>'+
+                '  </div>';
+    }
+    console.log(html_text);
+    document.getElementById('nav-sunday').children[0].children[0].innerHTML = html_text;
   }
-  
-  
+
   function classJSON(jsonDoc) {
-    // action goes here
-  
-    const jsonData=jsonDoc.responseText;
+    const jsonData = jsonDoc.responseText;
     console.log(jsonData);
     const jsonObj = JSON.parse(jsonData);
     console.log(jsonObj.classes);
-    var html_text="";
-    for(let i in jsonObj.classes){
+    var html_text = "";
+    for (let i in jsonObj.classes) {
       html_text += '<div class="class-item d-flex align-items-center">'+
-                 ' <a href="'+jsonObj.classes[i]["single-page"]+'" class="class-item-thumbnail">'+
+                   ' <a href="'+jsonObj.classes[i]["single-page"]+'" class="class-item-thumbnail">'+
                    ' <img src="'+jsonObj.classes[i]["image"]+'" alt="Image">'+
-                 ' </a>'+
-                  '<div class="class-item-text">'+
-                    '<span>'+jsonObj.classes[i]["time"]+'</span>'+
-                   ' <h2><a href="'+jsonObj.classes[i]["single-page"]+'">'+jsonObj.classes[i]["name"]+'</a></h2>'+
-                    '<span>'+jsonObj.classes[i]["instructor"]+'</span>,'+
-                  '  <span>'+jsonObj.classes[i]["duration"]+'</span>'+
-                 ' </div>'+
-              '  </div>'
+                   ' </a>'+
+                    '<div class="class-item-text">'+
+                      '<span>'+jsonObj.classes[i]["time"]+'</span>'+
+                     ' <h2><a href="'+jsonObj.classes[i]["single-page"]+'">'+jsonObj.classes[i]["name"]+'</a></h2>'+
+                      '<span>'+jsonObj.classes[i]["instructor"]+'</span>,'+
+                    '  <span>'+jsonObj.classes[i]["duration"]+'</span>'+
+                   ' </div>'+
+                '  </div>';
     }
-    document.getElementById('nav-sunday').children[0].children[1].innerHTML=html_text;
+    document.getElementById('nav-sunday').children[0].children[1].innerHTML = html_text;
   }
 
-
-  function loadSubject(file){ 
-    const select=document.getElementById("subject-select")
+  function loadSubject(file) { 
+    const select = document.getElementById("subject-select");
     fetch(file)
     .then(jsonDoc => jsonDoc.json())
     .then(jsonObj => {
       console.log(jsonObj.contactSubject);
       jsonObj.contactSubject.forEach(job => {
-        console.log(job)
-        const option =document.createElement("option")
+        console.log(job);
+        const option = document.createElement("option");
         option.textContent = job;
-        option.value=job;
+        option.value = job;
         select.appendChild(option);
-      })
-    })
+      });
+    });
   }
 
+  function show() {
+    const select = document.getElementById("subject-select");
+    console.log(select.value);
+  }
 
-function show(){
-  const select = document.getElementById("subject-select");
-  console.log(select.value)
-}
+  window.onload = function() {
+    const contact = document.getElementById("contact-head");
+    contact.innerHTML = "WoooooooooW";
+    loadDoc("./xml/class_sunday.xml", classXML);
+    loadDoc("./json/class_sunday.json", classJSON);
+    loadSubject('http://localhost:4000/api/subject');
+    loadProfessions()
+    document.getElementById('subscribe-form').addEventListener('submit', e => subscribeSummit(e))
+  };
 
 
-window.onload=function(){
- const contact = document.getElementById("contact-head")
-contact.innerHTML ="WoooooooooW"
-  loadDoc("./xml/class_sunday.xml", classXML);
-
-  loadDoc("./json/class_sunday.json", classJSON);
-
-  //loadSubject('./json/contact_subject.json')  
-
-  //loadSubject('http://localhost:4040/subject');
-  loadSubject('http://localhost:4000/api/subject');
-
-};
-
-//Ajax function
-const ajax=async(config) =>{
-  const request = await fetch(config.url,{ 
-    method: config.method,
-    headers:{
-             'Accept':'application/json',
-             'Content-Type':'application/json'
-            },
-    body: JSON.stringify(config.data)
-  });
-const response =await request.json();
-console.log(response);
-return response;
-
-}
-
-function submitContact(){
-    const data={
-      fname : document.getElementById('fname').value,
-      lname : document.getElementById('lname').value,
-      email : document.getElementById('email').value,
-      subject : document.getElementById('subject-select').value,
-      message : document.getElementById('message').value
-    };
-    console.log(data);
-    let response = ajax({
-      url:'http://localhost:4000/api/contact',
-      method:'POST',
-      data:data
-
+  const ajax = async (config) => {
+    const request = await fetch(config.url, { 
+      method: config.method,
+      headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+              },
+      body: JSON.stringify(config.data)
     });
 
-    console.log(response)
+    const response = await request.json();
+    console.log(response);
+    return response;
+  };
+
+  async function submitRegister() {
+  const fname = document.getElementById('register-fname').value.trim();
+  const lname = document.getElementById('register-lname').value.trim();
+  const email = document.getElementById('register-email').value.trim();
+  const password = document.getElementById('register-password').value.trim();
+  const occupation = document.getElementById('professions-dropdown') ? document.getElementById('professions-dropdown').value : '';
+
+  
+
+  if (!fname || !lname || !email || !password || !occupation) {
+    alert('Please fill in all fields.');
+    return;
+  }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
   }
 
+  const data = { fname, lname, email, password, occupation };
 
+  try {
+    const response = await fetch('http://localhost:4000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
 
-  </script>
+    const result = await response.json();
+
+    if (response.ok) {
+      alert('Registration successful!');
+    } else {
+      alert(result.error || 'Registration failed.');
+    }
+  } catch (error) {
+    console.error('Error submitting registration:', error);
+    alert('An error occurred during registration.');
+  }
+}
+async function subscribeSummit(e){
+  e.preventDefault();
+  console.log('ddddddddddd');
+  const email={email : document.getElementById("subscribe-email").value};
+  console.log(email)
+  const response= await fetch('http://localhost:4000/api/subscribe',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(email)
+
+  })
+  console.log(response)
+}
+
+</script>
 
 </body>
 

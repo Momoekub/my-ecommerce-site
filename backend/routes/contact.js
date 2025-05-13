@@ -1,4 +1,5 @@
-const express=require('express');
+// backend/routes/contact.js
+const express = require('express');
 const router = express.Router();
 
 router.post('/', (req,res) =>{
@@ -7,5 +8,6 @@ router.post('/', (req,res) =>{
     res.status(200).json({status:"Message Recieved"});
 
 });
+  
 
-module.exports=router;
+module.exports = router;
