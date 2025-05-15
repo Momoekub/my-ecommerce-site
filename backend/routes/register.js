@@ -6,34 +6,46 @@ const router = express.Router();
 router.post('/', (req, res) => {
   const { fname, lname, email, password, occupation } = req.body;
 
+  // ตรวจสอบว่า field ไหนขาด
   if (!fname || !lname || !email || !password || !occupation) {
-    return res.status(400).json({ message: 'All fields are required' });
+    return res.status(400).json({ message: 'Please fill in all fields.' });
   }
 
   const filePath = path.join(__dirname, '../data/user.json');
-  const users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-  // Check if email already exists
-  const existingUser = users.find(u => u.email === email);
-  if (existingUser) {
-    return res.status(400).json({ message: 'This email is already registered.' });
-  }
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading user.json:', err);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
 
-  // Add new user
-  const newUser = { fname, lname, email, password, occupation, registeredAt: new Date() };
-  users.push(newUser);
+    let users = [];
+    try {
+      users = JSON.parse(data);
+    } catch (error) {
+      console.error('Error parsing user.json:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
 
- fs.writeFile(filePath, JSON.stringify(users, null, 2), (err) => {
-  if (err) {
-    console.error('Error writing to file:', err);
-    return res.status(500).json({ error: 'Cannot save data to file' });
-  }
+    // เช็คซ้ำ email
+    if (users.find(user => user.email === email)) {
+      return res.status(400).json({ message: 'Email already registered.' });
+    }
 
-  console.log('User saved to:', filePath);
-  res.status(200).json({ message: 'Registration successful and data saved to user.json' });
-});
+    // เพิ่ม user ใหม่
+    users.push({ fname, lname, email, password, occupation });
 
-  res.json({ message: 'Registration successful!' });
+    // เขียนกลับไฟล์
+    fs.writeFile(filePath, JSON.stringify(users, null, 2), err => {
+      if (err) {
+        console.error('Error writing user.json:', err);
+        return res.status(500).json({ message: 'Failed to save user' });
+      }
+
+      console.log(`✅ User saved: ${email}`);
+      return res.json({ message: 'Registration successful.' });
+    });
+  });
 });
 
 module.exports = router;

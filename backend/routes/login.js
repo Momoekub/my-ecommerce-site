@@ -1,30 +1,27 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.status(405).json({ message: 'Please use POST method for login.' });
-});
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
 
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Please provide both username and password.' });
+  }
 
-  fs.readFile('data/user.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading user.json:', err);
-      return res.status(500).json({ message: 'Internal server error' });
-    }
+  const filePath = path.join(__dirname, '../data/user.json');
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) return res.status(500).json({ message: 'Internal server error' });
 
     let users;
     try {
       users = JSON.parse(data);
-    } catch (error) {
-      console.error('Error parsing user.json:', error);
+    } catch {
       return res.status(500).json({ message: 'Internal server error' });
     }
 
-    // ค้นหาผู้ใช้ที่มี email และ password ตรงกัน
     const user = users.find(user => user.email === username && user.password === password);
 
     if (user) {

@@ -18,20 +18,16 @@ app.use('/api/contact', require('./routes/contact'));
 app.use('/api/subscribe', require('./routes/subscribe'));
 
 // ✅ Static files
-app.use('/data', express.static(path.join(__dirname, 'data')));
+app.use('/json', express.static(path.join(__dirname, '../json')));
 
 // ✅ API: ดึง users ทั้งหมด
-app.get('/api/users', (req, res) => {
-  const users = require('./data/user.json');
-  res.json(users);
-});
-
-// ✅ API: ดึงอาชีพ
 app.get('/api/occupation', (req, res) => {
-  console.log('Occupation API called');
-  const occupationData = require('./data/occupation-cat.json');
+  const occupationPath = path.join(__dirname, '../json/occupation-cat.json');
+  const occupationData = JSON.parse(fs.readFileSync(occupationPath, 'utf8'));
   res.json(occupationData);
 });
+
+  
 
 // ✅ Root สำหรับทดสอบ
 app.get('/', (req, res) => {
