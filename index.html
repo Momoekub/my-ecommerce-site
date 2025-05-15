@@ -1670,7 +1670,7 @@
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/jquery.sticky.js"></script>
   <script src="js/jquery.mb.YTPlayer.min.js"></script>
-
+  <script src="js/register.js"></script>
 
   <script src="js/main.js"></script>
 
@@ -1817,6 +1817,39 @@ async function loadProfessionDropdown(category) {
   }
 }
 
+
+async function submitRegister() {
+  const fname = document.getElementById('register-fname').value.trim();
+  const lname = document.getElementById('register-lname').value.trim();
+  const email = document.getElementById('register-email').value.trim();
+  const password = document.getElementById('register-password').value.trim();
+  const occupation = document.getElementById('professions-dropdown') ? document.getElementById('professions-dropdown').value : '';
+
+  if (!fname || !lname || !email || !password || !occupation) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:4000/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fname, lname, email, password, occupation })
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert(result.message || 'Registration successful!');
+    } else {
+      alert(result.message || 'Registration failed.');
+    }
+  } catch (error) {
+    console.error('Error submitting registration:', error);
+    alert('An error occurred during registration.');
+  }
+}
+
 // Call on page load
 window.addEventListener('DOMContentLoaded', loadProfessions);
 
@@ -1931,48 +1964,8 @@ window.addEventListener('DOMContentLoaded', loadProfessions);
     return response;
   };
 
-  async function submitRegister() {
-  const fname = document.getElementById('register-fname').value.trim();
-  const lname = document.getElementById('register-lname').value.trim();
-  const email = document.getElementById('register-email').value.trim();
-  const password = document.getElementById('register-password').value.trim();
-  const occupation = document.getElementById('professions-dropdown') ? document.getElementById('professions-dropdown').value : '';
-
   
 
-  if (!fname || !lname || !email || !password || !occupation) {
-    alert('Please fill in all fields.');
-    return;
-  }
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-
-  const data = { fname, lname, email, password, occupation };
-
-  try {
-    const response = await fetch('http://localhost:4000/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      alert('Registration successful!');
-    } else {
-      alert(result.error || 'Registration failed.');
-    }
-  } catch (error) {
-    console.error('Error submitting registration:', error);
-    alert('An error occurred during registration.');
-  }
-}
 async function subscribeSummit(e){
   e.preventDefault();
   console.log('ddddddddddd');
@@ -2016,6 +2009,18 @@ async function submitLogin() {
   } catch (error) {
     console.error('Error during login:', error);
     alert('An error occurred during login.');
+  
+  }
+}
+async function checkDuplicateEmails(email) {
+  try {
+    const response = await fetch('http://localhost:4000/api/users');
+    console.log('User API called')
+    const users = await response.json();
+    return users.some(user => user.email.toLowerCase() === email.toLowerCase());
+  } catch (error) {
+    console.error('Error checking duplicate emails:', error);
+    return false; // ถ้าเช็คไม่ได้ จะไม่บล็อกการสมัคร (คุณอาจเปลี่ยนเป็น true เพื่อป้องกัน)
   }
 }
   

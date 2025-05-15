@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { username, password } = req.body;
 
-  // โหลดข้อมูลจากไฟล์ user.json
+
   fs.readFile('data/user.json', 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading user.json:', err);

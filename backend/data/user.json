@@ -1,35 +1,18 @@
 [
   {
-    "fname": "asdsa",
-    "lname": "dasdasd",
+    "fname": "โมทนา",
+    "lname": "เลาหะตั้งสกุล",
     "email": "momoe_mothana@hotmail.com",
     "password": "12345678",
-    "occupation": "Computer Scientist",
-    "registeredAt": "2025-05-13T08:44:40.927Z"
+    "occupation": "Computer Systems Analyst",
+    "registeredAt": "2025-05-15T08:23:41.284Z"
   },
   {
-    "fname": "ฟหกฟห",
-    "lname": "ฟหกฟห",
-    "email": "ฟหก",
-    "password": "กฟหกฟห",
-    "occupation": "Statistician",
-    "registeredAt": "2025-05-13T09:00:08.108Z"
-  },
-  {
-    "fname": "กฟหก",
-    "lname": "ฟหกฟหกฟห",
-    "email": "หฟกฟหกกฟหกฟหกฟห",
-    "password": "กฟหก",
-    "occupation": "Test Engineer",
-    "registeredAt": "2025-05-13T09:13:33.895Z"
-  },
-  {
-    "fname": "asdasdas",
-    "lname": "sadasd",
-    "email": "momoe_mothana@hotmail.com",
-    "password": "12345",
-    "occupation": "Surgeon",
-    "registeredAt": "2025-05-13T09:18:38.807Z"
+    "fname": "หฟกฟห",
+    "lname": "หฟกฟห",
+    "email": "40678@wattano.ac.th",
+    "password": "11111",
+    "occupation": "Radiation Therapists",
+    "registeredAt": "2025-05-15T08:24:02.792Z"
   }
-  
 ]
